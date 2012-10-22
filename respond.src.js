@@ -222,26 +222,28 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 			}
 										
 			for( var i in mediastyles ){
-				var thisstyle = mediastyles[ i ],
-					min = thisstyle.minw,
-					max = thisstyle.maxw,
-					minnull = min === null,
-					maxnull = max === null,
-					em = "em";
-				
-				if( !!min ){
-					min = parseFloat( min ) * ( min.indexOf( em ) > -1 ? ( eminpx || getEmValue() ) : 1 );
-				}
-				if( !!max ){
-					max = parseFloat( max ) * ( max.indexOf( em ) > -1 ? ( eminpx || getEmValue() ) : 1 );
-				}
-				
-				// if there's no media query at all (the () part), or min or max is not null, and if either is present, they're true
-				if( !thisstyle.hasquery || ( !minnull || !maxnull ) && ( minnull || currWidth >= min ) && ( maxnull || currWidth <= max ) ){
-						if( !styleBlocks[ thisstyle.media ] ){
-							styleBlocks[ thisstyle.media ] = [];
-						}
-						styleBlocks[ thisstyle.media ].push( rules[ thisstyle.rules ] );
+				if(mediastyles[ i ]){
+					var thisstyle = mediastyles[ i ],
+						min = thisstyle.minw,
+						max = thisstyle.maxw,
+						minnull = min === null,
+						maxnull = max === null,
+						em = "em";
+					
+					if( !!min ){
+						min = parseFloat( min ) * ( min.indexOf( em ) > -1 ? ( eminpx || getEmValue() ) : 1 );
+					}
+					if( !!max ){
+						max = parseFloat( max ) * ( max.indexOf( em ) > -1 ? ( eminpx || getEmValue() ) : 1 );
+					}
+					
+					// if there's no media query at all (the () part), or min or max is not null, and if either is present, they're true
+					if( !thisstyle.hasquery || ( !minnull || !maxnull ) && ( minnull || currWidth >= min ) && ( maxnull || currWidth <= max ) ){
+							if( !styleBlocks[ thisstyle.media ] ){
+								styleBlocks[ thisstyle.media ] = [];
+							}
+							styleBlocks[ thisstyle.media ].push( rules[ thisstyle.rules ] );
+					}
 				}
 			}
 			
